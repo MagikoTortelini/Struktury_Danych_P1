@@ -1,5 +1,5 @@
-#ifndef SORTING_ALGORITHMS_BUBBLESORT_H
-#define SORTING_ALGORITHMS_BUBBLESORT_H
+#ifndef LINKLIST_H
+#define LINKLIST_H
 
 template <typename T>
 struct Node
