@@ -204,7 +204,7 @@ public:
             }
             temp=temp->next;
         }
-        std::cout<<"Liczby nie ma w liscie"<<std::endl;
+        return;
 
     }
 
