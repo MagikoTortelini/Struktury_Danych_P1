@@ -4,44 +4,68 @@
 #include <vector>
 #include <chrono>
 #include <numeric>
+#include "double_linked_list.hpp"
+#include "tablica_dynamiczna.hpp"
+#include <random>
+#include <limits>
 
 using namespace std::chrono;
-Linked_list<int> prep_one_way_list(int ilosc,int i){
-    Linked_list<int> list;
-    std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
-    std::fstream plik(nazwa_pliku,std::ios_base::in);
-    int liczba;
-    while (plik >> liczba) {
-        list.add_at_front(liczba);
-    }
-    return list;
-    
-}
-void test_dodawania_na_poczatku(int ilosc,int typ,int liczba){
+void test_dodawania_na_poczatku(int ilosc,int typ,int liczba_){
+
     std::vector<long long> duration_tablica;
     switch (typ)
     {
     case 1:{
-        std::vector<Linked_list<int>> tablice;
         for(int z=0;z<10;z++){
             for(int i=0;i<10;i++){
-                tablice.push_back(prep_one_way_list(ilosc,i));
-            }
-            for(int i=0;i<10;i++){
+                Linked_list<int> list;
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    list.add_at_front(liczba);
+                }
                 auto start=high_resolution_clock::now();
-                tablice[i].add_at_front(5);
+                list.add_at_front(liczba_);
                 auto end=high_resolution_clock::now();
                 duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
             }
-            tablice.clear();
         }
         break;
     }
     case 2:
-        /*PLACE HOLDER*/
+        for(int z=0;z<10;z++){
+            for(int i=0;i<10;i++){
+                Double_list list;
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    list.add_beg(liczba);
+                }
+                auto start=high_resolution_clock::now();
+                list.add_beg(liczba_);
+                auto end=high_resolution_clock::now();
+                duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
+            }
+        }
         break;
     case 3:
-        /*PLACE HOLDER*/
+        for(int z=0;z<10;z++){
+            for(int i=0;i<10;i++){
+                Tablica_dynamiczna tab(ilosc);
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    tab.add_beg(liczba);
+                }
+                auto start=high_resolution_clock::now();
+                tab.add_beg(liczba_);
+                auto end=high_resolution_clock::now();
+                duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
+            }
+        }
         break;    
     default:
         break;
@@ -49,31 +73,61 @@ void test_dodawania_na_poczatku(int ilosc,int typ,int liczba){
     std::cout<<"Czas trwania dodawania na poczatek: "<<std::accumulate(duration_tablica.begin(),duration_tablica.end(),0LL)/100<<"ns"<<std::endl;
     std::cout<<std::endl;
 }
-void test_dodawania_na_koncu(int ilosc,int typ, int liczba){
+void test_dodawania_na_koncu(int ilosc,int typ, int liczba_){
 std::vector<long long> duration_tablica;
     switch (typ)
     {
     case 1:{
-        std::vector<Linked_list<int>> tablice;
         for(int z=0;z<10;z++){
             for(int i=0;i<10;i++){
-                tablice.push_back(prep_one_way_list(ilosc,i));
-            }
-            for(int i=0;i<10;i++){
+                Linked_list<int> list;
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    list.add_at_front(liczba);
+    }
                 auto start=high_resolution_clock::now();
-                tablice[i].add_at_back(liczba);
+                list.add_at_back(liczba_);
                 auto end=high_resolution_clock::now();
                 duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
             }
-            tablice.clear();
         }
         break;
     }
     case 2:
-        /*PLACE HOLDER*/
+        for(int z=0;z<10;z++){
+            for(int i=0;i<10;i++){
+                Double_list list;
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    list.add_beg(liczba);
+                }
+                auto start=high_resolution_clock::now();
+                list.add_end(liczba_);
+                auto end=high_resolution_clock::now();
+                duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
+            }
+        }
         break;
     case 3:
-        /*PLACE HOLDER*/
+        for(int z=0;z<10;z++){
+            for(int i=0;i<10;i++){
+                Tablica_dynamiczna tab(ilosc);
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    tab.add_beg(liczba);
+                }
+                auto start=high_resolution_clock::now();
+                tab.add_end(liczba_);
+                auto end=high_resolution_clock::now();
+                duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
+            }
+        }
         break;
     default:
         break;
@@ -86,26 +140,56 @@ void test_usuwania_na_poczatku(int ilosc,int typ){
     switch (typ)
     {
     case 1:{
-        std::vector<Linked_list<int>> tablice;
         for(int z=0;z<10;z++){
             for(int i=0;i<10;i++){
-                tablice.push_back(prep_one_way_list(ilosc,i));
-            }
-            for(int i=0;i<10;i++){
+                Linked_list<int> list;
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    list.add_at_front(liczba);
+                }
                 auto start=high_resolution_clock::now();
-                tablice[i].delete_front();
+                list.delete_front();
                 auto end=high_resolution_clock::now();
                 duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
             }
-            tablice.clear();
         }
         break;
     }
     case 2:
-        /*PLACE HOLDER*/
+        for(int z=0;z<10;z++){
+            for(int i=0;i<10;i++){
+                Double_list list;
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    list.add_beg(liczba);
+                }
+                auto start=high_resolution_clock::now();
+                list.del_beg();
+                auto end=high_resolution_clock::now();
+                duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
+            }
+        }
         break;
     case 3:
-        /*PLACE HOLDER*/
+        for(int z=0;z<10;z++){
+            for(int i=0;i<10;i++){
+                Tablica_dynamiczna tab(ilosc);
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    tab.add_beg(liczba);
+                }
+                auto start=high_resolution_clock::now();
+                tab.del_beg();
+                auto end=high_resolution_clock::now();
+                duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
+            }
+        }
         break;
     default:
         break;
@@ -118,26 +202,57 @@ std::vector<long long> duration_tablica;
     switch (typ)
     {
     case 1:{
-        std::vector<Linked_list<int>> tablice;
         for(int z=0;z<10;z++){
             for(int i=0;i<10;i++){
-                tablice.push_back(prep_one_way_list(ilosc,i));
-            }
-            for(int i=0;i<10;i++){
+                Linked_list<int> list;
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    list.add_at_front(liczba);
+                }
                 auto start=high_resolution_clock::now();
-                tablice[i].delete_end();
+                list.delete_end();
                 auto end=high_resolution_clock::now();
                 duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
             }
-            tablice.clear();
+            
         }
         break;
     }
     case 2:
-        /*PLACE HOLDER*/
+        for(int z=0;z<10;z++){
+            for(int i=0;i<10;i++){
+                Double_list list;
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    list.add_beg(liczba);
+                }
+                auto start=high_resolution_clock::now();
+                list.del_end();
+                auto end=high_resolution_clock::now();
+                duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
+            }
+        }
         break;
     case 3:
-        /*PLACE HOLDER*/
+        for(int z=0;z<10;z++){
+            for(int i=0;i<10;i++){
+                Tablica_dynamiczna tab(ilosc);
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    tab.add_beg(liczba);
+                }
+                auto start=high_resolution_clock::now();
+                tab.del_end();
+                auto end=high_resolution_clock::now();
+                duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
+            }
+        }
         break;
     default:
         break;
@@ -145,31 +260,61 @@ std::vector<long long> duration_tablica;
     std::cout<<"Czas trwania usuwania na koncu: "<<std::accumulate(duration_tablica.begin(),duration_tablica.end(),0LL)/100<<"ns"<<std::endl;
     std::cout<<std::endl;
 }
-void test_wyszukiwania(int ilosc,int typ,int liczba){
+void test_wyszukiwania(int ilosc,int typ,int liczba_){
     std::vector<long long> duration_tablica;
     switch (typ)
     {
     case 1:{
-        std::vector<Linked_list<int>> tablice;
         for(int z=0;z<10;z++){
             for(int i=0;i<10;i++){
-                tablice.push_back(prep_one_way_list(ilosc,i));
-            }
-            for(int i=0;i<10;i++){
+                Linked_list<int> list;
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    list.add_at_front(liczba);
+                }
                 auto start=high_resolution_clock::now();
-                tablice[i].find(liczba);
+                list.find(liczba_);
                 auto end=high_resolution_clock::now();
                 duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
             }
-            tablice.clear();
         }
         break;
     }
     case 2:
-        /*PLACE HOLDER*/
+        for(int z=0;z<10;z++){
+            for(int i=0;i<10;i++){
+                Double_list list;
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    list.add_beg(liczba);
+                }
+                auto start=high_resolution_clock::now();
+                list.find(liczba_);
+                auto end=high_resolution_clock::now();
+                duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
+            }
+        }
         break;
     case 3:
-        /*PLACE HOLDER*/
+        for(int z=0;z<10;z++){
+            for(int i=0;i<10;i++){
+                Tablica_dynamiczna tab(ilosc);
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    tab.add_beg(liczba);
+                }
+                auto start=high_resolution_clock::now();
+                tab.find(liczba_);
+                auto end=high_resolution_clock::now();
+                duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
+            }
+        }
         break;
     default:
         break;
@@ -177,31 +322,62 @@ void test_wyszukiwania(int ilosc,int typ,int liczba){
     std::cout<<"Czas trwania wyszukiwania elementu "<<std::accumulate(duration_tablica.begin(),duration_tablica.end(),0LL)/100<<"ns"<<std::endl;
     std::cout<<std::endl;
 }
-void test_dodawania_na_indexie(int ilosc,int typ,int liczba){
+void test_dodawania_na_indexie(int ilosc,int typ,int liczba_,int index){
     std::vector<long long> duration_tablica;
     switch (typ)
     {
     case 1:{
-        std::vector<Linked_list<int>> tablice;
         for(int z=0;z<10;z++){
             for(int i=0;i<10;i++){
-                tablice.push_back(prep_one_way_list(ilosc,i));
-            }
-            for(int i=0;i<10;i++){
+                Linked_list<int> list;
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    list.add_at_front(liczba);
+                }
                 auto start=high_resolution_clock::now();
-                tablice[i].insert(liczba,tablice[i].get_size()/2);
+                list.insert(liczba_,index);
                 auto end=high_resolution_clock::now();
                 duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
             }
-            tablice.clear();
+            
         }
         break;
     }
     case 2:
-        /*PLACE HOLDER*/
+        for(int z=0;z<10;z++){
+            for(int i=0;i<10;i++){
+                Double_list list;
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    list.add_beg(liczba);
+                }
+                auto start=high_resolution_clock::now();
+                list.add(liczba_,index);
+                auto end=high_resolution_clock::now();
+                duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
+            }
+        }
         break;
     case 3:
-        /*PLACE HOLDER*/
+        for(int z=0;z<10;z++){
+            for(int i=0;i<10;i++){
+                Tablica_dynamiczna tab(ilosc);
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    tab.add_beg(liczba);
+                }
+                auto start=high_resolution_clock::now();
+                tab.add(liczba_,index);
+                auto end=high_resolution_clock::now();
+                duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
+            }
+        }
         break;
     default:
         break;
@@ -209,7 +385,7 @@ void test_dodawania_na_indexie(int ilosc,int typ,int liczba){
     std::cout<<"Czas trwania dodawania na indeksie: "<<std::accumulate(duration_tablica.begin(),duration_tablica.end(),0LL)/100<<"ns"<<std::endl;
     std::cout<<std::endl;
 }
-void test_usuwania_na_indeksie(int ilosc,int typ){
+void test_usuwania_na_indeksie(int ilosc,int typ, int index){
     std::vector<long long> duration_tablica;
     switch (typ)
     {
@@ -217,23 +393,55 @@ void test_usuwania_na_indeksie(int ilosc,int typ){
         std::vector<Linked_list<int>> tablice;
         for(int z=0;z<10;z++){
             for(int i=0;i<10;i++){
-                tablice.push_back(prep_one_way_list(ilosc,i));
-            }
-            for(int i=0;i<10;i++){
+                Linked_list<int> list;
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    list.add_at_front(liczba);
+                }
                 auto start=high_resolution_clock::now();
-                tablice[i].delete_index(tablice[i].get_size()/2);
+                list.delete_index(index);
                 auto end=high_resolution_clock::now();
                 duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
             }
-            tablice.clear();
+
         }
         break;
     }
     case 2:
-        /*PLACE HOLDER*/
+        for(int z=0;z<10;z++){
+            for(int i=0;i<10;i++){
+                Double_list list;
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    list.add_beg(liczba);
+                }
+                auto start=high_resolution_clock::now();
+                list.del(index);
+                auto end=high_resolution_clock::now();
+                duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
+            }
+        }
         break;
     case 3:
-        /*PLACE HOLDER*/
+        for(int z=0;z<10;z++){
+            for(int i=0;i<10;i++){
+                Tablica_dynamiczna tab(ilosc);
+                std::string nazwa_pliku = "dane/dane_" + std::to_string(ilosc)+"_"+std::to_string(i) + ".txt";
+                std::fstream plik(nazwa_pliku,std::ios_base::in);
+                int liczba;
+                while (plik >> liczba) {
+                    tab.add_beg(liczba);
+                }
+                auto start=high_resolution_clock::now();
+                tab.del(index);
+                auto end=high_resolution_clock::now();
+                duration_tablica.push_back(duration_cast<nanoseconds>(end-start).count());
+            }
+        }
         break;
     default:
         break;
@@ -244,6 +452,9 @@ void test_usuwania_na_indeksie(int ilosc,int typ){
 }
 void testy(int decyzja_){
     std::vector<int> zakres={5000,8000,10000,16000,20000,40000,60000,100000};
+    std::random_device rd; 
+    std::mt19937 gen(rd()); 
+    
     int decyzja;
     std::string buff;
     bool temp=true;
@@ -290,8 +501,9 @@ void testy(int decyzja_){
         std::cin>>liczba;
         system("clear"); 
         for(int i=0;i<zakres.size();i++){
+            std::uniform_int_distribution<int> dist(0,zakres[i]);
             std::cout<<"Test dla zakresu: "<<zakres[i]<<std::endl;
-            test_dodawania_na_indexie(zakres[i],decyzja_,liczba);
+            test_dodawania_na_indexie(zakres[i],decyzja_,liczba,dist(gen));
         }
         break;
     case 4:
@@ -311,8 +523,9 @@ void testy(int decyzja_){
     case 6:
         system("clear"); 
         for(int i=0;i<zakres.size();i++){
+            std::uniform_int_distribution<int> dist(0,zakres[i]);
             std::cout<<"Test dla zakresu: "<<zakres[i]<<std::endl;
-            test_usuwania_na_indeksie(zakres[i],decyzja_);
+            test_usuwania_na_indeksie(zakres[i],decyzja_,dist(gen));
         }
         break;
     case 7:
@@ -344,8 +557,8 @@ void wybor_struktury(){
     int decyzja;
     std::cout<<"TESTOWANIE STRUKTUR:"<<std::endl<<"Wybierz struktury do testu:"<<std::endl;
     std::cout<<"1. Lista jednokierunkowa"<<std::endl<<
-               "2. Tablica dynamiczna"<<std::endl<<
-               "3. Lista dwukierunkowa"<<std::endl;
+               "2. Lista dwukierunkowa"<<std::endl<<
+               "3. Tablica dynamiczna"<<std::endl;
     std::cin>>decyzja;
     testy(decyzja);
 

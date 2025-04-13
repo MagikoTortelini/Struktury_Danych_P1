@@ -2,12 +2,12 @@
 #define LINKLIST_H
 
 template <typename T>
-struct Node
+struct NodeS
 {
     T data;
-    Node<T>* next;
+    NodeS<T>* next;
 
-    Node(T _data,Node* _next){
+    NodeS(T _data,NodeS* _next){
         data=_data;
         next=_next;
     }
@@ -21,8 +21,8 @@ class Linked_list
 {
 private:
     int size;
-    Node<T>* head;
-    Node<T>* tail;
+    NodeS<T>* head;
+    NodeS<T>* tail;
 public:
     Linked_list(){
         size=0;
@@ -30,7 +30,7 @@ public:
         tail=nullptr;
     }
     ~Linked_list(){
-        Node<T>* temp;
+        NodeS<T>* temp;
         while (head!=nullptr) {
             temp = head;
             head = head->next;
@@ -47,11 +47,11 @@ public:
         }
         else if(pozycja<size&&pozycja>0){
             int pos=1;
-            Node<T>* temp=head;
+            NodeS<T>* temp=head;
             while(temp->next!=nullptr){
                 if(pos==pozycja){
-                   Node<T>* node= new Node<T>(data,temp->next);
-                   temp->next=node;
+                   NodeS<T>* Node= new NodeS<T>(data,temp->next);
+                   temp->next=Node;
                    size+=1; 
                    return;
                 }
@@ -68,16 +68,16 @@ public:
     }
     void add_at_front(T data){
         if(size==0){
-            Node<T>* node= new Node<T>(data,tail);
-            tail=node;
-            head=node;
+            NodeS<T>* Node= new NodeS<T>(data,tail);
+            tail=Node;
+            head=Node;
             size+=1;
 
         }
         else if(size>0){
-            Node<T>* temp=head;
-            Node<T>* node= new Node<T>(data,temp);
-            head=node;
+            NodeS<T>* temp=head;
+            NodeS<T>* Node= new NodeS<T>(data,temp);
+            head=Node;
             size+=1;
 
         }
@@ -93,7 +93,7 @@ public:
             size-=1;
         }
         else{
-            Node<T>* temp=head->next;
+            NodeS<T>* temp=head->next;
             delete head;
             head=temp;
             size-=1;
@@ -111,7 +111,7 @@ public:
             size-=1;
         }
         else{
-            Node<T>* temp=head;
+            NodeS<T>* temp=head;
             while(temp->next!=nullptr){
                 if(temp->next==tail){
                     delete tail;
@@ -136,10 +136,10 @@ public:
         }
         else if(pozycja<size&&pozycja>0){
             int pos=1;
-            Node<T>* temp=head;
+            NodeS<T>* temp=head;
             while(temp->next!=nullptr){
                 if(pos==pozycja-1){
-                   Node<T>* temp2=temp->next;
+                   NodeS<T>* temp2=temp->next;
                    temp->next=temp2->next; 
                    delete temp2;
                    size-=1; 
@@ -159,16 +159,16 @@ public:
     }
     void add_at_back(T data){
             if(size == 0){
-                Node<T>* node = new Node<T>(data, nullptr);
-                head = node;
-                tail = node;
+                NodeS<T>* Node = new NodeS<T>(data, nullptr);
+                head = Node;
+                tail = Node;
                 size+=1;
             } 
             else {
-                Node<T>* node = new Node<T>(data, nullptr);
+                NodeS<T>* Node = new NodeS<T>(data, nullptr);
                 if (tail)
-                    tail->next = node;
-                tail = node;
+                    tail->next = Node;
+                tail = Node;
                 size+=1;
             }
             
@@ -176,7 +176,7 @@ public:
 
     }
     void display(){
-        Node<T>* temp=head;
+        NodeS<T>* temp=head;
         if(temp==nullptr){
             std::cout<<"Lista jest pusta"<<std::endl;
         }
@@ -196,10 +196,10 @@ public:
         
     }
     void find(T data){
-        Node<T>* temp=head;
+        NodeS<T>* temp=head;
         while(temp!=nullptr){
             if(temp->data==data){
-                std::cout<<"Liczba znajduje sie w liscie"<<std::endl;
+
                 return;
             }
             temp=temp->next;
