@@ -36,7 +36,7 @@ class Double_list{
             }
         }
 
-        int get_size(){
+        int get_size() const{
             return size;
         }
         void add(int data, int position) {
@@ -52,14 +52,14 @@ class Double_list{
                 if (position < size / 2) {
                     temp = head;
                     pos = 0;
-                    while (pos < position - 1) {
+                    while (pos < position - 2) {
                         temp = temp->next;
                         pos++;
                     }
                 } else {
                     temp = tail;
                     pos = size - 1;
-                    while (pos >= position) {
+                    while (pos >= position - 1) {
                         temp = temp->prev;
                         pos--;
                     }
@@ -106,7 +106,7 @@ class Double_list{
             }
     }
 
-        void delete_beg(){
+        void del_beg(){
             if(size==1){
                 delete head;
                 head=nullptr;
@@ -120,7 +120,7 @@ class Double_list{
             size--;
         }
 
-        void delete_end(){
+        void del_end(){
             if(size==1){
                 delete head;
                 head=nullptr;
@@ -136,9 +136,9 @@ class Double_list{
 
         void del(int position) {
             if (position == 0) {
-                delete_beg();
+                del_beg();
             } else if (position == size - 1) {
-                delete_end();
+                del_end();
             } else {
                 Node* temp;
                 int pos;
@@ -147,14 +147,14 @@ class Double_list{
                 if (position < size / 2) {
                     temp = head;
                     pos = 0;
-                    while (pos < position) {
+                    while (pos < position - 1) {
                         temp = temp->next;
                         pos++;
                     }
                 } else {
                     temp = tail;
                     pos = size - 1;
-                    while (pos > position) {
+                    while (pos > position - 1) {
                         temp = temp->prev;
                         pos--;
                     }
@@ -168,7 +168,7 @@ class Double_list{
             }
         }
         
-        bool find(int data){
+        bool find(int data) const{
             Node* temp=head;
             while(temp!=nullptr){
                 if(temp->data==data){
