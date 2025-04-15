@@ -475,36 +475,36 @@ void testy(int decyzja_){
     std::cin>>decyzja;
     switch (decyzja)
     {
-    case 1:
+    case 1:{
         system("clear"); 
-        std::cout<<"Podaj liczbe: ";
-        std::cin>>liczba;
-        system("clear"); 
+        std::uniform_int_distribution<int> dist(0,std::numeric_limits<int>::max()); 
+        liczba=dist(gen);
         for(int i=0;i<zakres.size();i++){
             std::cout<<"Test dla zakresu: "<<zakres[i]<<std::endl;
             test_dodawania_na_poczatku(zakres[i],decyzja_,liczba);
         }
+    }
         break;
-    case 2:
+    case 2:{
         system("clear"); 
-        std::cout<<"Podaj liczbe: ";
-        std::cin>>liczba;
-        system("clear"); 
+        std::uniform_int_distribution<int> dist(0,std::numeric_limits<int>::max()); 
+        liczba=dist(gen);
         for(int i=0;i<zakres.size();i++){
             std::cout<<"Test dla zakresu: "<<zakres[i]<<std::endl;
             test_dodawania_na_koncu(zakres[i],decyzja_,liczba);
         }
+    }
         break;
-    case 3:
+    case 3:{
         system("clear"); 
-        std::cout<<"Podaj liczbe: ";
-        std::cin>>liczba;
-        system("clear"); 
+        std::uniform_int_distribution<int> dist(0,std::numeric_limits<int>::max()); 
+        liczba=dist(gen);
         for(int i=0;i<zakres.size();i++){
             std::uniform_int_distribution<int> dist(0,zakres[i]);
             std::cout<<"Test dla zakresu: "<<zakres[i]<<std::endl;
             test_dodawania_na_indexie(zakres[i],decyzja_,liczba,dist(gen));
         }
+    }
         break;
     case 4:
         system("clear"); 
@@ -528,15 +528,16 @@ void testy(int decyzja_){
             test_usuwania_na_indeksie(zakres[i],decyzja_,dist(gen));
         }
         break;
-    case 7:
+    case 7:{
         system("clear"); 
-        std::cout<<"Podaj liczbe: ";
-        std::cin>>liczba;
+        std::uniform_int_distribution<int> dist(0,std::numeric_limits<int>::max()); 
+        liczba=dist(gen);
         system("clear"); 
         for(int i=0;i<zakres.size();i++){
             std::cout<<"Test dla zakresu: "<<zakres[i]<<std::endl;
             test_wyszukiwania(zakres[i],decyzja_,liczba);
         }
+    }
         break;
     case 8:
         temp=false;
