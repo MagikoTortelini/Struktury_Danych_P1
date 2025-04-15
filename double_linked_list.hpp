@@ -4,11 +4,13 @@
 #include <iostream>
 using namespace std;
 
+// struktura pojedynczego wezla
 struct Node {
     int data;
     Node* next;
     Node* prev;
 
+    // konstruktor wezla
     Node(int _data){
         data=_data;
         next=nullptr;
@@ -22,11 +24,7 @@ class Double_list{
         Node* head;
         Node* tail;
     public:
-        Double_list(){
-            size=0;
-            head=nullptr;
-            tail=nullptr;
-        }
+        Double_list(){size=0; head=nullptr; tail=nullptr;}
         ~Double_list(){
             Node* temp;
             while (head!=nullptr) {
@@ -41,6 +39,7 @@ class Double_list{
         }
         void add(int data, int position) {
             if (position < 0 || position > size) return;
+
             if (position == 0) {
                 add_beg(data);
             } else if (position == size) {
@@ -66,10 +65,12 @@ class Double_list{
                     }
                 }
         
+                // nowy wezel
                 Node* node = new Node(data);
                 node->next = temp->next;
                 node->prev = temp;
         
+                // wstawienie w odpowiednie miejsce
                 if (temp->next != nullptr){
                     temp->next->prev = node;
                 }
@@ -80,12 +81,14 @@ class Double_list{
         
         void add_beg(int data){
             Node* node= new Node(data);
+
+            // jesli nie ma elementow
             if(size==0){
                 tail=node;
                 head=node;
                 size++;
-            }
-            else {
+            }else {
+                // przestawienie wskaznikow
                 node->next = head;
                 head->prev = node;
                 head=node;
@@ -95,11 +98,14 @@ class Double_list{
 
         void add_end(int data){
             Node* node = new Node (data);
+
+            // jesli lista pusta
             if(head == nullptr){
                 head = node;
                 tail = node;
                 size++;
             } else {
+                // nowy element na koncu
                 tail->next = node;
                 node->prev = tail;
                 tail = node;
@@ -109,11 +115,14 @@ class Double_list{
 
         void del_beg(){
             if (size == 0) return;
+
+            // jezeli rozmiar to 1
             if(size==1){
                 delete head;
                 head=nullptr;
                 tail=nullptr;
             }else{
+                // przesuniecie head i usuniecie starego
                 Node* temp=head->next;
                 delete head;
                 head=temp;
@@ -124,11 +133,14 @@ class Double_list{
 
         void del_end(){
             if (size == 0) return;
+
+            // jezeli rozmiar to 1
             if(size==1){
                 delete head;
                 head=nullptr;
                 tail=nullptr;
             }else{
+                // przesuniecie tail i usuniecie starego
                 Node* temp=tail;
                 tail = tail->prev;
                 tail->next = nullptr;
@@ -184,4 +196,3 @@ class Double_list{
         }
     };
 #endif
-
