@@ -40,6 +40,7 @@ class Double_list{
             return size;
         }
         void add(int data, int position) {
+            if (position < 0 || position > size) return;
             if (position == 0) {
                 add_beg(data);
             } else if (position == size) {
@@ -107,6 +108,7 @@ class Double_list{
     }
 
         void del_beg(){
+            if (size == 0) return;
             if(size==1){
                 delete head;
                 head=nullptr;
@@ -121,6 +123,7 @@ class Double_list{
         }
 
         void del_end(){
+            if (size == 0) return;
             if(size==1){
                 delete head;
                 head=nullptr;
@@ -135,6 +138,7 @@ class Double_list{
         }
 
         void del(int position) {
+            if (position < 0 || position >= size) return;
             if (position == 0) {
                 del_beg();
             } else if (position == size - 1) {
