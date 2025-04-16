@@ -52,6 +52,7 @@ class Double_list{
                 if (position < size / 2) {
                     temp = head;
                     pos = 0;
+                    // przechodzimy do wezla poprzedzajacego
                     while (pos < position - 2) {
                         temp = temp->next;
                         pos++;
@@ -59,21 +60,23 @@ class Double_list{
                 } else {
                     temp = tail;
                     pos = size - 1;
+                    // cofamy sie do wezla przed miejscem wstawienia
                     while (pos >= position - 1) {
                         temp = temp->prev;
                         pos--;
                     }
                 }
-        
                 // nowy wezel
                 Node* node = new Node(data);
+                // wskazniki nowego wezla na sasiadow
                 node->next = temp->next;
                 node->prev = temp;
         
-                // wstawienie w odpowiednie miejsce
+                // jezeli nastepny istnieje to jego wskaznik prev wskazuje na nowy
                 if (temp->next != nullptr){
                     temp->next->prev = node;
                 }
+                // poprzedni wskazuje na nowy
                 temp->next = node;
                 size++;
             }
@@ -84,13 +87,16 @@ class Double_list{
 
             // jesli nie ma elementow
             if(size==0){
+                // nowy jest headem i tailem
                 tail=node;
                 head=node;
                 size++;
             }else {
-                // przestawienie wskaznikow
+                // nowy wskazuje na pierwszy
                 node->next = head;
+                // pierwszy wskazuje na nowy
                 head->prev = node;
+                // node jest teraz headem
                 head=node;
                 size++;
             }
@@ -105,13 +111,15 @@ class Double_list{
                 tail = node;
                 size++;
             } else {
-                // nowy element na koncu
+                // tail wskazuje na nowy wezel
                 tail->next = node;
+                // nowy wezel wskazuje na poprzedni czyli teraz tail
                 node->prev = tail;
+                // nowy wezel jest teraz tailem
                 tail = node;
                 size++;
             }
-    }
+        }
 
         void del_beg(){
             if (size == 0) return;
@@ -151,6 +159,7 @@ class Double_list{
 
         void del(int position) {
             if (position < 0 || position >= size) return;
+
             if (position == 0) {
                 del_beg();
             } else if (position == size - 1) {
@@ -163,6 +172,8 @@ class Double_list{
                 if (position < size / 2) {
                     temp = head;
                     pos = 0;
+
+                    // przechodzimy do wezla poprzedzajacego
                     while (pos < position - 1) {
                         temp = temp->next;
                         pos++;
@@ -170,13 +181,17 @@ class Double_list{
                 } else {
                     temp = tail;
                     pos = size - 1;
+
+                    // cofamy sie do wezla przed miejscem usuwania
                     while (pos > position - 1) {
                         temp = temp->prev;
                         pos--;
                     }
                 }
-                // temp to teraz element do usunięcia
+                // wskaznik next poprzedniego wezla wskazuje na nastepny element po temp
                 temp->prev->next = temp->next;
+
+                // wskaznik prev nastepego wezla wskazuje na element przed temp
                 temp->next->prev = temp->prev;
         
                 delete temp;
