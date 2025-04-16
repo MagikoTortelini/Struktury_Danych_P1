@@ -50,19 +50,15 @@ class Double_list{
                 int pos;
         
                 // wybor od ktorej strony
-                if (position < size / 2) {
+               if (position < size / 2) {
                     temp = head;
-                    pos = 0;
-                    while (pos < position - 2) {
+                    for (int i = 0; i < position - 1; i++) {
                         temp = temp->next;
-                        pos++;
                     }
                 } else {
                     temp = tail;
-                    pos = size - 1;
-                    while (pos >= position - 1) {
+                    for (int i = size - 1; i > position - 1; i--) {
                         temp = temp->prev;
-                        pos--;
                     }
                 }
         
@@ -182,6 +178,17 @@ class Double_list{
             }
             return false;
         }
+        void display(){
+        Node* temp=head;
+        if(temp==nullptr){
+            std::cout<<"Lista jest pusta"<<std::endl;
+        }
+        while(temp!=nullptr){
+            std::cout<<temp->data<<", ";
+            temp=temp->next;
+        }
+
+    }
     };
 #endif
 

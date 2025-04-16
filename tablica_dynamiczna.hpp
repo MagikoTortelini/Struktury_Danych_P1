@@ -23,5 +23,6 @@ class Tablica_dynamiczna{
         void del(int position);
 
         bool find(int x) const;
+        void display();
 };
 #endif

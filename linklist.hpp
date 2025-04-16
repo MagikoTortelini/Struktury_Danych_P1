@@ -181,7 +181,7 @@ public:
             std::cout<<"Lista jest pusta"<<std::endl;
         }
         while(temp!=nullptr){
-            std::cout<<temp->data<<std::endl;
+            std::cout<<temp->data<<", ";
             temp=temp->next;
         }
 
