@@ -40,7 +40,7 @@ class Double_list{
         void add(int data, int position) {
             if (position < 0 || position > size) return;
 
-            if (position == 0) {
+            if (position == 1) {
                 add_beg(data);
             } else if (position == size) {
                 add_end(data);
@@ -52,7 +52,7 @@ class Double_list{
                if (position < size / 2) {
                     temp = head;
                     pos = 0;
-                    while (pos < position - 2) {
+                    while (pos < position - 1) {
                         temp = temp->next;
                     }
                 } else {
