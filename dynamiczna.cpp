@@ -86,6 +86,12 @@ bool Tablica_dynamiczna::find(int x) const{
     }
     return false;
 }
+void Tablica_dynamiczna::display(){
+    for(int i = 0; i<actual; i++) {
+        std::cout<<tab[i]<<", ";
+    }
+
+}
 
 
 
