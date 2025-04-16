@@ -8,9 +8,11 @@ Tablica_dynamiczna::Tablica_dynamiczna(int s) {actual = 0; size = s; tab = new i
 Tablica_dynamiczna::~Tablica_dynamiczna() {delete[] tab;}
 
 int Tablica_dynamiczna::resize() {
+    // powiekszenie rozmiaru dwukrotnie
     int n_size = 2*size;
     int* n_tab = new int[n_size];
 
+    // przeniesienie danych do nowej tablicy
     for (int i=0; i<size; i++) {
         n_tab[i]=tab[i];
     }
@@ -22,6 +24,8 @@ int Tablica_dynamiczna::resize() {
 
 void Tablica_dynamiczna::add_beg(int element) {
     if(actual==size){resize();}
+
+    // przesuniecie elementow o 1 w prawo
     for(int i = actual - 1;i>=0;i--){ 
         tab[i+1]=tab[i];
     }
@@ -41,6 +45,8 @@ void Tablica_dynamiczna::add(int element, int position){
     if (position < 0 || position > actual) return;
 
     if(actual==size){resize();}
+
+    // przesuniecie elementow o 1 w prawo
     for(int i=actual; i>position; i--){
         tab[i]=tab[i-1];
     }
@@ -49,6 +55,7 @@ void Tablica_dynamiczna::add(int element, int position){
 }
 
 void Tablica_dynamiczna::del_beg(){
+    // przesuniecie elementow o 1 w lewo
     for(int i = 0; i < actual-1;i++){
         tab[i]=tab[i+1];
     }
@@ -64,6 +71,8 @@ void Tablica_dynamiczna::del_end(){
 void Tablica_dynamiczna::del(int position) {
     position--;
     if (position < 0 || position >= actual) return;
+
+    // przesuniecie elementow o 1 w lewo
     for(int i = position; i < actual - 1; i++) {
         tab[i]=tab[i+1];
     }
@@ -76,12 +85,6 @@ bool Tablica_dynamiczna::find(int x) const{
         }
     }
     return false;
-}
-void Tablica_dynamiczna::display(){
-    for(int i = 0; i<actual; i++) {
-
-        std::cout<<tab[i]<<", ";
-    }
 }
 
 
